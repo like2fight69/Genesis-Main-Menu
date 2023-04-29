@@ -1,8 +1,14 @@
 #include <genesis.h>
 //#include "menu.h"
 #include <resources.h>
+#include "res_sound.h"
 
-
+enum GAME_STATE
+{
+    STATE_MENU,
+    STATE_PLAY
+};
+enum GAME_STATE currentState;
 typedef struct
 {
     u16 x;
@@ -24,13 +30,21 @@ void updateCursorPosition();
 void joyEventHandler(u16 joy, u16 changed, u16 state);
 void moveUp();
 void moveDown();
+void select(u16 Option);
+void pickStart();
+void pickOptions();
+void pickExit();
 
 int main()
 {
 
+    //SFX_init();
+    // start music
+    XGM_startPlay(sonic_music);
     SPR_init();
     JOY_init();
 JOY_setEventHandler(joyEventHandler);
+    currentState = STATE_MENU;
     VDP_drawText("Hello Mega Drive World!", 8, 12);
     u16 i = 0;
 for(i; i < NUM_OPTIONS; i++){
@@ -74,4 +88,43 @@ void joyEventHandler(u16 joy, u16 changed, u16 state){
     else if(changed & state & BUTTON_DOWN){
         moveDown();
     }
+    if(changed & state & BUTTON_START){
+    select(currentIndex);
+}
+}
+
+void select(u16 Option){
+    switch (Option)
+    {
+    case 0:{
+        //start game loop
+        pickStart();
+        break;
+    }
+    case 1:{
+        pickOptions();
+        break;
+    }
+    case 2:{
+        pickExit();
+        break;
+    }
+    
+    default:
+        break;
+    }
+}
+void pickStart(){
+    VDP_clearText(8, 12, 20);
+    VDP_drawText("Picked Start", 8, 12);
+}
+
+void pickOptions(){
+    VDP_clearText(8, 12, 20);
+    VDP_drawText("Picked Options", 8, 12);
+}
+
+void pickExit(){
+    VDP_clearText(8, 12, 20);
+    VDP_drawText("Picked Exit", 8, 12);
 }

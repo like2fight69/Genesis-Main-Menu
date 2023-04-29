@@ -20,4 +20,5 @@ out/src/main.o: src/main.c /Users/tylersand/SGDK/inc/genesis.h \
  /Users/tylersand/SGDK/inc/task.h /Users/tylersand/SGDK/inc/task_cst.h \
  /Users/tylersand/SGDK/inc/ext/flash-save/flash.h \
  /Users/tylersand/SGDK/inc/types.h \
- /Users/tylersand/SGDK/inc/ext/flash-save/saveman.h res/resources.h
+ /Users/tylersand/SGDK/inc/ext/flash-save/saveman.h res/resources.h \
+ res/res_sound.h
